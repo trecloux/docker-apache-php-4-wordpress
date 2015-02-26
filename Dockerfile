@@ -2,7 +2,7 @@ FROM debian:wheezy
 MAINTAINER Thomas Recloux <thomas.recloux@gmail.com>
 
 RUN apt-get update && \
-        apt-get -y install mysql-client apache2 php5 php5-mysql libapache2-mod-php5 php5-curl unzip wget less vim libjpeg62 gifsicle optipng pngquant libwebp-dev libwebp2 libjpeg-progs && \
+        apt-get -y install mysql-client apache2 php5 php5-mysql libapache2-mod-php5 php5-curl php5-gd unzip wget less vim libjpeg62 gifsicle optipng pngquant libwebp-dev libwebp2 libjpeg-progs && \
         apt-get clean && \
         wget http://static.jonof.id.au/dl/kenutils/pngout-20130221-linux.tar.gz && \
         tar -zxvf pngout-20130221-linux.tar.gz && \
