@@ -2,7 +2,7 @@ FROM debian:wheezy
 MAINTAINER Thomas Recloux <thomas.recloux@gmail.com>
 
 RUN apt-get update && \
-        apt-get -y install mysql-client apache2 php5 php5-mysql libapache2-mod-php5 php5-curl php5-gd unzip wget less vim libjpeg62 gifsicle optipng pngquant libwebp-dev libwebp2 libjpeg-progs && \
+        apt-get -y install mysql-client apache2 php5 php5-mysql libapache2-mod-php5 php5-curl php5-gd unzip wget less vim libjpeg62 gifsicle optipng pngquant libwebp-dev libwebp2 libjpeg-progs php-apc && \
         apt-get clean && \
         wget http://static.jonof.id.au/dl/kenutils/pngout-20130221-linux.tar.gz && \
         tar -zxvf pngout-20130221-linux.tar.gz && \
@@ -11,7 +11,12 @@ RUN apt-get update && \
 
 
 ADD apache-vhost.conf /etc/apache2/sites-available/vhost
-RUN a2dissite default && a2ensite vhost && a2enmod rewrite headers
+RUN a2dissite default && \ 
+    a2ensite vhost && \ 
+	a2enmod rewrite headers && \
+	echo "apc.enabled = 1" > /etc/php5/apache2/php.ini  && \
+	echo "apc.include_once_override = 0" > /etc/php5/apache2/php.ini  && \
+	echo "apc.shm_size = 256" > /etc/php5/apache2/php.ini
 
 VOLUME /var/www
 VOLUME /var/log/apache2
